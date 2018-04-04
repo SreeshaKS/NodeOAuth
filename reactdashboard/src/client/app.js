@@ -77,8 +77,36 @@ class App extends Component {
                         'Authorization': 'Basic ' + base64.encode(name + ":" + pass)
                     });
         },
-        addMoney: () => {
-
+        getMoney: (dataCallback) => {
+            FetchAPI
+                .get(
+                    `http://localhost:3000/api/money`
+                    , {}
+                    , (e, d) => {
+                        this.setState({ transaction: d })
+                        dataCallback(d)
+                        console.log('MoneyData', d)
+                    }, {
+                        'Authorization': 'Bearer ' + this.state.authCookie.access_token.value
+                    });
+        },
+        addMoney: (money, callback) => {
+            console.log('Adding Money addMoneyCallback', money)
+            FetchAPI
+                .post(
+                    `http://localhost:3000/api/money`
+                    , {
+                        name: 'testMoney',
+                        type: 'euro',
+                        quantity: money
+                    }
+                    , (e, d) => {
+                        console.log('AddMoney', d)
+                        callback(d)
+                    }, {
+                        'Authorization': 'Bearer ' + this.state.authCookie.access_token.value//,
+                        //"Content-Type": "application/x-www-form-urlencoded"
+                    });
         },
         sendmoney: () => {
 
@@ -96,7 +124,7 @@ class App extends Component {
                         </Grid.Row> */}
                     <Grid.Row centered columns={2}>
                         {console.log(document.URL)}
-                        <MainPage />
+                        <MainPage callbacks={this.callbacks} />
                     </Grid.Row>
                 </Grid>
                 <LoginModal callbacks={this.callbacks} open={!(authCookie && !errCookie)} />

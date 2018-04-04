@@ -39870,7 +39870,7 @@ var _reactCookie = __webpack_require__(1074);
 
 var _utils = __webpack_require__(1082);
 
-var _secret = __webpack_require__(1084);
+var _secret = __webpack_require__(1083);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39932,7 +39932,29 @@ var App = function (_Component) {
                     'Authorization': 'Basic ' + _base2.default.encode(name + ":" + pass)
                 });
             },
-            addMoney: function addMoney() {},
+            getMoney: function getMoney(dataCallback) {
+                _apis2.default.get('http://localhost:3000/api/money', {}, function (e, d) {
+                    _this.setState({ transaction: d });
+                    dataCallback(d);
+                    console.log('MoneyData', d);
+                }, {
+                    'Authorization': 'Bearer ' + _this.state.authCookie.access_token.value
+                });
+            },
+            addMoney: function addMoney(money, callback) {
+                console.log('Adding Money addMoneyCallback', money);
+                _apis2.default.post('http://localhost:3000/api/money', {
+                    name: 'testMoney',
+                    type: 'euro',
+                    quantity: money
+                }, function (e, d) {
+                    console.log('AddMoney', d);
+                    callback(d);
+                }, {
+                    'Authorization': 'Bearer ' + _this.state.authCookie.access_token.value //,
+                    //"Content-Type": "application/x-www-form-urlencoded"
+                });
+            },
             sendmoney: function sendmoney() {}
         };
 
@@ -39966,7 +39988,7 @@ var App = function (_Component) {
                         _semanticUiReact.Grid.Row,
                         { centered: true, columns: 2 },
                         console.log(document.URL),
-                        _react2.default.createElement(_mainPage2.default, null)
+                        _react2.default.createElement(_mainPage2.default, { callbacks: this.callbacks })
                     )
                 ),
                 _react2.default.createElement(_loginModal2.default, { callbacks: this.callbacks, open: !(authCookie && !errCookie) })
@@ -77470,13 +77492,13 @@ function get(url, params, cb) {
 function post(url, data, cb) {
     var headers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
-    var d = new FormData();
-    Object.keys(data).forEach(function (item) {
-        d.append(item, data[item]);
-    });
+    // var d = new FormData();
+    // Object.keys(data).forEach((item)=>{
+    //     d.append( item, data[item]);
+    // });
     fetch(url, {
         method: 'POST',
-        body: d,
+        body: data,
         headers: _extends({}, headers),
         credentials: 'include'
     }).then(function (res) {
@@ -77770,11 +77792,15 @@ var Home = function (_Component) {
                 addmoney = _this$state.addmoney,
                 sendmoney = _this$state.sendmoney;
 
-            console.log(addmoney, sendmoney);
             _this.setState({ submittedadd: addmoney, submittedsend: sendmoney });
+            if (addmoney) {
+                _this.props.callbacks.addMoney(addmoney, function () {
+                    _this.getMoney();
+                });
+            } else {}
         };
 
-        _this.state = { addmoney: '', sendmoney: '', submittedadd: '', submittedsend: '' };
+        _this.state = { addmoney: '', sendmoney: '', submittedadd: '', submittedsend: '', graphData: null };
         return _this;
     }
 
@@ -77782,6 +77808,24 @@ var Home = function (_Component) {
         key: 'componentWillReceiveProps',
         value: function componentWillReceiveProps(nP) {
             this.setState({});
+        }
+    }, {
+        key: 'getMoney',
+        value: function getMoney() {
+            var _this2 = this;
+
+            console.log('Getting Money');
+            this.props.callbacks.getMoney(function (gData) {
+                console.log('Got Money');
+                _this2.setState({ graphData: gData.map(function (e, i) {
+                        return { amt: 2400, name: e.date.split('T')[0], pv: parseInt(e.quantity), uv: 4000 };
+                    }) });
+            });
+        }
+    }, {
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            this.getMoney();
         }
     }, {
         key: 'render',
@@ -77799,7 +77843,7 @@ var Home = function (_Component) {
                         { width: '100%', aspect: 4 },
                         _react2.default.createElement(
                             _recharts.AreaChart,
-                            { data: data,
+                            { data: this.state.graphData || data,
                                 margin: { top: 10, right: 30, left: 0, bottom: 0 } },
                             _react2.default.createElement(
                                 'defs',
@@ -77876,7 +77920,7 @@ var Home = function (_Component) {
                                     _react2.default.createElement(
                                         _semanticUiReact.Form.Group,
                                         null,
-                                        _react2.default.createElement(_semanticUiReact.Form.Input, { placeholder: 'Send Money', name: 'sendmoney', value: name, onChange: this.handleChange }),
+                                        _react2.default.createElement(_semanticUiReact.Form.Input, { placeholder: 'Send Money', name: 'sendmoney', onChange: this.handleChange }),
                                         _react2.default.createElement('br', null),
                                         _react2.default.createElement(
                                             _semanticUiReact.Form.Button,
@@ -77895,7 +77939,7 @@ var Home = function (_Component) {
                                     _react2.default.createElement(
                                         _semanticUiReact.Form.Group,
                                         null,
-                                        _react2.default.createElement(_semanticUiReact.Form.Input, { placeholder: 'Add Money', name: 'addmoney', value: name, onChange: this.handleChange }),
+                                        _react2.default.createElement(_semanticUiReact.Form.Input, { placeholder: 'Add Money', name: 'addmoney', onChange: this.handleChange }),
                                         _react2.default.createElement('br', null),
                                         _react2.default.createElement(
                                             _semanticUiReact.Form.Button,
@@ -92491,8 +92535,7 @@ module.exports = {
 };
 
 /***/ }),
-/* 1083 */,
-/* 1084 */
+/* 1083 */
 /***/ (function(module, exports) {
 
 module.exports = {

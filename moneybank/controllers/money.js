@@ -6,9 +6,10 @@ exports.postMoney = function (req, res) {
 
     money.name = req.body.name;
     money.type = req.body.type;
-    money.quantity = req.body.quantity; 
+    money.quantity = req.body.quantity;
     money.userId = req.user._id;
-
+    money.date = Date.now();
+    console.log(req.body.quantity)
     money.save(function (err) {
         if (err)
             res.send(err);
@@ -19,7 +20,7 @@ exports.postMoney = function (req, res) {
 
 exports.getMoney = function (req, res) {
     console.log(req.user)
-    Money.find({ userId: req.user._id/*, _id: req.params.trans_id*/ },function (err, money) {
+    Money.find({ userId: req.user._id/*, _id: req.params.trans_id*/ }, function (err, money) {
         if (err)
             res.send(err);
 
@@ -29,7 +30,7 @@ exports.getMoney = function (req, res) {
 
 exports.getTrans = function (req, res) {
 
-    Money.find({ userId: req.user._id, _id:req.params.trans_id}, function (err, money) {
+    Money.find({ userId: req.user._id, _id: req.params.trans_id }, function (err, money) {
         if (err)
             res.send(err);
 
@@ -38,7 +39,7 @@ exports.getTrans = function (req, res) {
 }
 
 exports.updateTrans = function (req, res) {
-    Money.update({ userId: req.user._id, _id: req.params.trans_id}, function (err, money) {
+    Money.update({ userId: req.user._id, _id: req.params.trans_id }, function (err, money) {
         if (err)
             res.send(err);
 
@@ -54,7 +55,7 @@ exports.updateTrans = function (req, res) {
 }
 
 exports.deleteTrans = function (req, res) {
-    Money.remove({ userId: req.user._id, _id: req.params.trans_id}, function (err) {
+    Money.remove({ userId: req.user._id, _id: req.params.trans_id }, function (err) {
         if (err)
             res.send(err);
 

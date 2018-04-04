@@ -8,26 +8,42 @@ import { AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, ResponsiveContai
 export default class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = { addmoney: '', sendmoney: '', submittedadd: '', submittedsend: '' }
+        this.state = { addmoney: '', sendmoney: '', submittedadd: '', submittedsend: '', graphData: null }
     }
 
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
     handleSubmit = () => {
         const { addmoney, sendmoney } = this.state
-        console.log(addmoney, sendmoney);
         this.setState({ submittedadd: addmoney, submittedsend: sendmoney })
+        if (addmoney) {
+            this.props.callbacks.addMoney(addmoney, () => {
+                this.getMoney()
+            })
+        } else {
+
+        }
     }
     componentWillReceiveProps(nP) {
         this.setState({
         });
+    }
+    getMoney() {
+        console.log('Getting Money')
+        this.props.callbacks.getMoney((gData) => {
+            console.log('Got Money')
+            this.setState({ graphData: gData.map((e, i) => { return { amt: 2400, name: e.date.split('T')[0], pv: parseInt(e.quantity), uv: 4000 } }) })
+        })
+    }
+    componentDidMount() {
+        this.getMoney()
     }
     render() {
         return (
             <Grid columns='equal' centered columns={2}>
                 <Grid.Row stretched>
                     <ResponsiveContainer width="100%" aspect={4}>
-                        <AreaChart data={data}
+                        <AreaChart data={this.state.graphData || data}
                             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                             <defs>
                                 <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
@@ -73,7 +89,7 @@ export default class Home extends Component {
                             <Grid.Column verticalAlign='center'>
                                 <Form onSubmit={this.handleSubmit} size='huge'>
                                     <Form.Group >
-                                        <Form.Input placeholder='Send Money' name='sendmoney' value={name} onChange={this.handleChange} />
+                                        <Form.Input placeholder='Send Money' name='sendmoney' onChange={this.handleChange} />
                                         <br />
                                         <Form.Button type='submit' icon color='red' circular size='large'>
                                             <Icon name='sign out' color='white' size='large' />
@@ -84,7 +100,7 @@ export default class Home extends Component {
                             <Grid.Column verticalAlign='center'>
                                 <Form onSubmit={this.handleSubmit} size='huge'>
                                     <Form.Group>
-                                        <Form.Input placeholder='Add Money' name='addmoney' value={name} onChange={this.handleChange} />
+                                        <Form.Input placeholder='Add Money' name='addmoney' onChange={this.handleChange} />
                                         <br />
                                         <Form.Button circular type='submit' icon color='blue' size='large'>
                                             <Icon name='sign in' color='white' size='large' />

@@ -19,13 +19,13 @@ function get(url, params, cb, headers = {}) {
 }
 
 function post(url, data, cb, headers = {}) {
-    var d = new FormData();
-    Object.keys(data).forEach((item)=>{
-        d.append( item, data[item]);
-    });
+    // var d = new FormData();
+    // Object.keys(data).forEach((item)=>{
+    //     d.append( item, data[item]);
+    // });
     fetch(url, {
         method: 'POST',
-        body: d,
+        body: data,
         headers: {
             ...headers
         },
