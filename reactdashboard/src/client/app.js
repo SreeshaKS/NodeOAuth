@@ -8,6 +8,9 @@ import FetchAPI from './apis';
 import config from '../config';
 import LoginModal from './components/loginModal';
 import base64 from 'base-64';
+import { CookiesProvider } from 'react-cookie';
+import { getCookie } from './utils';
+import { clientID, redirect_uri } from '../config/secret'
 
 let loginPromptStyle = {
     'height': window.innerHeight * 0.2,
@@ -30,9 +33,12 @@ let items = [
 class App extends Component {
     constructor(props) {
         super(props)
+        console.log('constructor', getCookie('auth', document.cookie))
         this.state = {
+            authCookie: getCookie('auth', document.cookie),
+            errCookie: getCookie('authErr', document.cookie),
             isLoggedIn: false
-        }
+        };
     }
     setInitalState = (data) => {
         this.setState({
@@ -42,23 +48,22 @@ class App extends Component {
     }
     callbacks = {
         onLogIn: (data, successCallback) => {
-            let clientID = '1234';
             FetchAPI
                 .get(
-                    `http://localhost:3000/api/oauth2/authorize?client_id=${clientID}&response_type=code&redirect_uri=http://localhost:8181`
+                    `http://localhost:3000/api/oauth2/authorize?client_id=${clientID}&response_type=code&redirect_uri=${redirect_uri}`
                     , {}
                     , (e, d) => {
                         this.setState({ transData: d })
-                        console.log(d)
                         successCallback(d ? true : false, d)
                     }, {
                         //'content-type': 'application/json',
                         'Authorization': 'Basic ' + base64.encode(data.name + ":" + data.pass)
                     });
         },
-        onLogOut: () => { },
-        shouldAllow: shouldAllow => {
-            console.log('Should Allow?', shouldAllow,this.state)
+        onLogOut: () => {
+
+        },
+        shouldAllow: (name, pass, shouldAllow) => {
             let data = { transaction_id: this.state.transData.transactionID }
             if (!shouldAllow) data.cancel = 'Deny'
             FetchAPI
@@ -68,15 +73,21 @@ class App extends Component {
                     , (e, d) => {
                         console.log(d)
                     }, {
-                        // 'Content-Type': 'application/json'//'application/x-www-form-urlencoded'
-                        //'Authorization': 'Basic ' + base64.encode(data.name + ":" + data.pass)
+                        //'Content-Type': 'application/json'//'application/x-www-form-urlencoded',
+                        'Authorization': 'Basic ' + base64.encode(name + ":" + pass)
                     });
+        },
+        addMoney: () => {
+
+        },
+        sendmoney: () => {
+
         }
     }
     componentDidMount() {
     }
     render() {
-        let { isLoggedIn } = this.state;
+        let { isLoggedIn, authCookie, errCookie } = this.state;
         return (
             <div>
                 <Grid centered fluid columns={1}>
@@ -88,7 +99,7 @@ class App extends Component {
                         <MainPage />
                     </Grid.Row>
                 </Grid>
-                <LoginModal callbacks={this.callbacks} open={true} />
+                <LoginModal callbacks={this.callbacks} open={!(authCookie && !errCookie)} />
             </div>
         )
     }

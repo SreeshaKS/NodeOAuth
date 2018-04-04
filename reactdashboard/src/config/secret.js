@@ -1,5 +1,5 @@
 module.exports = {
-    cliendID: '1234',
-    clientSecret: 'mySecret',
+    clientID: '1234',
+    clientSecret: 'mysecret',
     redirect_uri: 'http://localhost:8181'
 }

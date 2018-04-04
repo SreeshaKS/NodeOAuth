@@ -87,7 +87,7 @@ class LoginModal extends Component {
                     </Form>
                 </Modal.Content>
                 <Modal.Actions >
-                    <NestedModal shouldDisplay={submittedName && submittedPass ? true : false} onSubmit={this.handleSubmit} transData={transData} allow={this.props.callbacks.shouldAllow} />
+                    <NestedModal shouldDisplay={submittedName && submittedPass ? true : false} onSubmit={this.handleSubmit} transData={transData} allow={s => this.props.callbacks.shouldAllow(submittedName, submittedPass, s)} />
                 </Modal.Actions>
             </Modal>
         )
