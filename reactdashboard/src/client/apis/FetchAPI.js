@@ -19,16 +19,17 @@ function get(url, params, cb, headers = {}) {
 }
 
 function post(url, data, cb, headers = {}) {
-    // var d = new FormData();
-    // Object.keys(data).forEach((item)=>{
-    //     d.append( item, data[item]);
-    // });
+    var d = new FormData();
+    Object.keys(data).forEach((item) => {
+        d.append(item, data[item]);
+    });
     fetch(url, {
         method: 'POST',
-        body: data,
+        body: JSON.stringify(data),
         headers: {
             ...headers
         },
+        mode: 'cors',
         credentials: 'include'
     })
         .then((res) => res.json())

@@ -33,11 +33,15 @@ let items = [
 class App extends Component {
     constructor(props) {
         super(props)
-        console.log('constructor', getCookie('auth', document.cookie))
+        let authCookie = getCookie('auth', document.cookie)
+        let errCookie = getCookie('authErr', document.cookie)
+        let isLoggedIn = false
+        if (authCookie && !errCookie) isLoggedIn = true
+        console.log('LoggedIn', authCookie, !errCookie, errCookie, authCookie && !errCookie ? true : false);
         this.state = {
-            authCookie: getCookie('auth', document.cookie),
-            errCookie: getCookie('authErr', document.cookie),
-            isLoggedIn: false
+            authCookie: authCookie,
+            errCookie: errCookie,
+            isLoggedIn: isLoggedIn
         };
     }
     setInitalState = (data) => {
@@ -91,7 +95,6 @@ class App extends Component {
                     });
         },
         addMoney: (money, callback) => {
-            console.log('Adding Money addMoneyCallback', money)
             FetchAPI
                 .post(
                     `http://localhost:3000/api/money`
@@ -104,12 +107,26 @@ class App extends Component {
                         console.log('AddMoney', d)
                         callback(d)
                     }, {
-                        'Authorization': 'Bearer ' + this.state.authCookie.access_token.value//,
-                        //"Content-Type": "application/x-www-form-urlencoded"
+                        'Authorization': 'Bearer ' + this.state.authCookie.access_token.value
+                        , 'content-type': 'application/json'
                     });
         },
         sendmoney: () => {
-
+            FetchAPI
+                .post(
+                    `http://localhost:3000/api/money`
+                    , {
+                        name: 'testMoney',
+                        type: 'euro',
+                        quantity: money
+                    }
+                    , (e, d) => {
+                        console.log('AddMoney', d)
+                        callback(d)
+                    }, {
+                        'Authorization': 'Bearer ' + this.state.authCookie.access_token.value
+                        , 'content-type': 'application/json'
+                    });
         }
     }
     componentDidMount() {
@@ -118,16 +135,17 @@ class App extends Component {
         let { isLoggedIn, authCookie, errCookie } = this.state;
         return (
             <div>
-                <Grid centered fluid columns={1}>
-                    {/* <Grid.Row centered>
+                {isLoggedIn ?
+                    <Grid centered fluid columns={1}>
+                        {/* <Grid.Row centered>
                             <AppHeader callbacks={this.callbacks} />
                         </Grid.Row> */}
-                    <Grid.Row centered columns={2}>
-                        {console.log(document.URL)}
-                        <MainPage callbacks={this.callbacks} />
-                    </Grid.Row>
-                </Grid>
-                <LoginModal callbacks={this.callbacks} open={!(authCookie && !errCookie)} />
+                        <Grid.Row centered columns={2}>
+                            {console.log(document.URL)}
+                            <MainPage isLoggedIn={isLoggedIn} callbacks={this.callbacks} />
+                        </Grid.Row>
+                    </Grid> :
+                    <LoginModal callbacks={this.callbacks} open={!isLoggedIn} />}
             </div>
         )
     }

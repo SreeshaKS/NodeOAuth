@@ -9,7 +9,6 @@ exports.postMoney = function (req, res) {
     money.quantity = req.body.quantity;
     money.userId = req.user._id;
     money.date = Date.now();
-    console.log(req.body.quantity)
     money.save(function (err) {
         if (err)
             res.send(err);

@@ -39942,7 +39942,6 @@ var App = function (_Component) {
                 });
             },
             addMoney: function addMoney(money, callback) {
-                console.log('Adding Money addMoneyCallback', money);
                 _apis2.default.post('http://localhost:3000/api/money', {
                     name: 'testMoney',
                     type: 'euro',
@@ -39951,18 +39950,34 @@ var App = function (_Component) {
                     console.log('AddMoney', d);
                     callback(d);
                 }, {
-                    'Authorization': 'Bearer ' + _this.state.authCookie.access_token.value //,
-                    //"Content-Type": "application/x-www-form-urlencoded"
+                    'Authorization': 'Bearer ' + _this.state.authCookie.access_token.value,
+                    'content-type': 'application/json'
                 });
             },
-            sendmoney: function sendmoney() {}
+            sendmoney: function sendmoney() {
+                _apis2.default.post('http://localhost:3000/api/money', {
+                    name: 'testMoney',
+                    type: 'euro',
+                    quantity: money
+                }, function (e, d) {
+                    console.log('AddMoney', d);
+                    callback(d);
+                }, {
+                    'Authorization': 'Bearer ' + _this.state.authCookie.access_token.value,
+                    'content-type': 'application/json'
+                });
+            }
         };
 
-        console.log('constructor', (0, _utils.getCookie)('auth', document.cookie));
+        var authCookie = (0, _utils.getCookie)('auth', document.cookie);
+        var errCookie = (0, _utils.getCookie)('authErr', document.cookie);
+        var isLoggedIn = false;
+        if (authCookie && !errCookie) isLoggedIn = true;
+        console.log('LoggedIn', authCookie, !errCookie, errCookie, authCookie && !errCookie ? true : false);
         _this.state = {
-            authCookie: (0, _utils.getCookie)('auth', document.cookie),
-            errCookie: (0, _utils.getCookie)('authErr', document.cookie),
-            isLoggedIn: false
+            authCookie: authCookie,
+            errCookie: errCookie,
+            isLoggedIn: isLoggedIn
         };
         return _this;
     }
@@ -39981,17 +39996,16 @@ var App = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(
+                isLoggedIn ? _react2.default.createElement(
                     _semanticUiReact.Grid,
                     { centered: true, fluid: true, columns: 1 },
                     _react2.default.createElement(
                         _semanticUiReact.Grid.Row,
                         { centered: true, columns: 2 },
                         console.log(document.URL),
-                        _react2.default.createElement(_mainPage2.default, { callbacks: this.callbacks })
+                        _react2.default.createElement(_mainPage2.default, { isLoggedIn: isLoggedIn, callbacks: this.callbacks })
                     )
-                ),
-                _react2.default.createElement(_loginModal2.default, { callbacks: this.callbacks, open: !(authCookie && !errCookie) })
+                ) : _react2.default.createElement(_loginModal2.default, { callbacks: this.callbacks, open: !isLoggedIn })
             );
         }
     }]);
@@ -77492,14 +77506,15 @@ function get(url, params, cb) {
 function post(url, data, cb) {
     var headers = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : {};
 
-    // var d = new FormData();
-    // Object.keys(data).forEach((item)=>{
-    //     d.append( item, data[item]);
-    // });
+    var d = new FormData();
+    Object.keys(data).forEach(function (item) {
+        d.append(item, data[item]);
+    });
     fetch(url, {
         method: 'POST',
-        body: data,
+        body: JSON.stringify(data),
         headers: _extends({}, headers),
+        mode: 'cors',
         credentials: 'include'
     }).then(function (res) {
         return res.json();
@@ -77814,7 +77829,6 @@ var Home = function (_Component) {
         value: function getMoney() {
             var _this2 = this;
 
-            console.log('Getting Money');
             this.props.callbacks.getMoney(function (gData) {
                 console.log('Got Money');
                 _this2.setState({ graphData: gData.map(function (e, i) {
@@ -77832,6 +77846,10 @@ var Home = function (_Component) {
         value: function render() {
             var _React$createElement;
 
+            var sum = 0;
+            (this.state.graphData || []).forEach(function (e, i) {
+                sum = sum + e.pv;
+            });
             return _react2.default.createElement(
                 _semanticUiReact.Grid,
                 _defineProperty({ columns: 'equal', centered: true }, 'columns', 2),
@@ -77894,7 +77912,8 @@ var Home = function (_Component) {
                                     _semanticUiReact.Header,
                                     { size: 'huge', icon: true },
                                     _react2.default.createElement(_semanticUiReact.Icon, { name: 'money', size: 'massive', color: 'green' }),
-                                    '$20000'
+                                    '$',
+                                    sum
                                 )
                             ),
                             _react2.default.createElement(
@@ -77913,26 +77932,7 @@ var Home = function (_Component) {
                             { centered: true, stretched: true },
                             _react2.default.createElement(
                                 _semanticUiReact.Grid.Column,
-                                { verticalAlign: 'center' },
-                                _react2.default.createElement(
-                                    _semanticUiReact.Form,
-                                    { onSubmit: this.handleSubmit, size: 'huge' },
-                                    _react2.default.createElement(
-                                        _semanticUiReact.Form.Group,
-                                        null,
-                                        _react2.default.createElement(_semanticUiReact.Form.Input, { placeholder: 'Send Money', name: 'sendmoney', onChange: this.handleChange }),
-                                        _react2.default.createElement('br', null),
-                                        _react2.default.createElement(
-                                            _semanticUiReact.Form.Button,
-                                            { type: 'submit', icon: true, color: 'red', circular: true, size: 'large' },
-                                            _react2.default.createElement(_semanticUiReact.Icon, { name: 'sign out', color: 'white', size: 'large' })
-                                        )
-                                    )
-                                )
-                            ),
-                            _react2.default.createElement(
-                                _semanticUiReact.Grid.Column,
-                                { verticalAlign: 'center' },
+                                { verticalAlign: 'middle' },
                                 _react2.default.createElement(
                                     _semanticUiReact.Form,
                                     { onSubmit: this.handleSubmit, size: 'huge' },
