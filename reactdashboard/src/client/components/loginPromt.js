@@ -22,7 +22,7 @@ export default class LoginPrompt extends Component {
                         <Icon name='user' circular />
                         <Header.Content>
                             Please Login To Proceed
-                            </Header.Content>
+                        </Header.Content>
                     </Header>
                 </Segment>
             </Grid.Column>

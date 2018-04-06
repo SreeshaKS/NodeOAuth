@@ -45,7 +45,7 @@ export default class Home extends Component {
         return (
             <Grid columns='equal' centered columns={2}>
                 <Grid.Row stretched>
-                    <ResponsiveContainer width="100%" aspect={4}>
+                    <ResponsiveContainer width="97%" aspect={4}>
                         <AreaChart data={this.state.graphData || data}
                             margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                             <defs>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Button, Icon, Modal, Form } from 'semantic-ui-react'
+import { clientID, redirect_uri } from '../../config/secret'
 
 class NestedModal extends Component {
     state = { open: false, transData: { user: { username: '' }, client: { name: '' } } }
@@ -61,16 +62,17 @@ class LoginModal extends Component {
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
     handleSubmit = () => {
-        const { name, pass } = this.state
+        location.href = `http://localhost:3000/api/oauth2/authorize?client_id=${clientID}&response_type=code&redirect_uri=${redirect_uri}`
+        // const { name, pass } = this.state
 
-        this.setState({ submittedName: name, submittedPass: pass, isLoggedIn: true })
-        this.props.callbacks
-            .onLogIn(
-                { name, pass },
-                (isLoginSuccessFull, data) => {
-                    this.setState({ isLoggedIn: isLoginSuccessFull, transData: data })
-                }
-            )
+        // this.setState({ submittedName: name, submittedPass: pass, isLoggedIn: true })
+        // this.props.callbacks
+        //     .onLogIn(
+        //         { name, pass },
+        //         (isLoginSuccessFull, data) => {
+        //             this.setState({ isLoggedIn: isLoginSuccessFull, transData: data })
+        //         }
+        //     )
     }
     render() {
         let { open, name, pass, submittedName, submittedPass, isLoggedIn, transData } = this.state;
@@ -79,16 +81,21 @@ class LoginModal extends Component {
             <Modal open={open} trigger={<Button>Login</Button>}>
                 <Modal.Header>Login</Modal.Header>
                 <Modal.Content >
-                    <Form onSubmit={this.handleSubmit}>
+                    <Button onClick={this.handleSubmit} >
+                        Login
+                    </Button>
+                    {/* <input type="button" onClick={location.href=`http://localhost:3000/api/oauth2/authorize?client_id=${clientID}&response_type=code&redirect_uri=${redirect_uri}`} value="Login" /> */}
+
+                    {/* <Form onSubmit={this.handleSubmit}>
                         <Form.Group>
                             <Form.Input placeholder='UserName' name='name' value={name} onChange={this.handleChange} />
                             <Form.Input placeholder='Password' name='pass' value={pass} onChange={this.handleChange} type='password' />
                         </Form.Group>
-                    </Form>
+                    </Form> */}
                 </Modal.Content>
-                <Modal.Actions >
+                {/* <Modal.Actions >
                     <NestedModal shouldDisplay={submittedName && submittedPass ? true : false} onSubmit={this.handleSubmit} transData={transData} allow={s => this.props.callbacks.shouldAllow(submittedName, submittedPass, s)} />
-                </Modal.Actions>
+                </Modal.Actions> */}
             </Modal>
         )
     }

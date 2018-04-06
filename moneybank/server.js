@@ -43,7 +43,6 @@ app.use(session({
 
 
 app.get('/dashboard',(req, res) => {
-  console.log(req.query)
   res.sendFile('../reactdashboard/src/client/index.html', { root: __dirname });
 })
 

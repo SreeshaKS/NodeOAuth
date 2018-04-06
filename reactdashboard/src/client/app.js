@@ -57,11 +57,14 @@ class App extends Component {
                     `http://localhost:3000/api/oauth2/authorize?client_id=${clientID}&response_type=code&redirect_uri=${redirect_uri}`
                     , {}
                     , (e, d) => {
-                        this.setState({ transData: d })
-                        successCallback(d ? true : false, d)
+                        console.log(d)
+                        var wind = window.open("", "popupWindow", "width=600,height=600,scrollbars=yes");
+                        wind.document.write(d);
+                        // this.setState({ transData: d })
+                        // successCallback(d ? true : false, d)
                     }, {
                         //'content-type': 'application/json',
-                        'Authorization': 'Basic ' + base64.encode(data.name + ":" + data.pass)
+                        // 'Authorization': 'Basic ' + base64.encode(data.name + ":" + data.pass)
                     });
         },
         onLogOut: () => {

@@ -68,8 +68,8 @@ exports.authorization = [
     });
   }),
   function (req, res) {
-    res.send({ transactionID: req.oauth2.transactionID, user: req.user, client: req.oauth2.client })
-    //res.render('dialog',{ transactionID: req.oauth2.transactionID, user: req.user, client: req.oauth2.client });
+    //res.send({ transactionID: req.oauth2.transactionID, user: req.user, client: req.oauth2.client })
+    res.render('dialog',{ transactionID: req.oauth2.transactionID, user: req.user, client: req.oauth2.client });
   }
 ]
 
