@@ -37,7 +37,9 @@ class App extends Component {
         let errCookie = getCookie('authErr', document.cookie)
         let isLoggedIn = false
         if (authCookie && !errCookie) isLoggedIn = true
-        console.log('LoggedIn', authCookie, !errCookie, errCookie, authCookie && !errCookie ? true : false);
+        console.log('LoggedIn',isLoggedIn);
+        console.log('Auth Cookie',authCookie);
+        console.log('AuthError Cookie',decodeURIComponent(document.cookie));
         this.state = {
             authCookie: authCookie,
             errCookie: errCookie,

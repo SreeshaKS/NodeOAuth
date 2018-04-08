@@ -2,6 +2,7 @@
 const express = require('express')
 const path = require('path');
 const secret = require('./config/secret')
+const serverSecret = require('./config/serverSecret')
 var rp = require('request-promise');
 var bodyParser = require('body-parser');
 
@@ -24,11 +25,12 @@ const run = () => {
           redirect_uri: secret.redirect_uri
         },
         headers: {
-          "Authorization": "Basic " + new Buffer(secret.clientID + ":" + secret.clientSecret).toString("base64")
+          "Authorization": "Basic " + new Buffer(secret.clientID + ":" + serverSecret.clientSecret).toString("base64")
         }
       };
       rp(options)
         .then(function (parsedBody) {
+          console.log(parsedBody)
           res.cookie('auth', parsedBody, { maxAge: 300000, httpOnly: false })
           res.cookie('authErr', '', { maxAge: 300000, httpOnly: false })
           res.redirect('/dashboard');
