@@ -40,6 +40,8 @@ class App extends Component {
         console.log('LoggedIn',isLoggedIn);
         console.log('Auth Cookie',authCookie);
         console.log('AuthError Cookie',decodeURIComponent(document.cookie));
+        //Add Auth token to local storage
+        localStorage.setItem('auth', JSON.stringify(authCookie))
         this.state = {
             authCookie: authCookie,
             errCookie: errCookie,
