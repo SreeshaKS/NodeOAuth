@@ -1,0 +1,501 @@
+{
+	"_type": "export",
+	"__export_format": 3,
+	"__export_date": "2018-04-08T16:51:19.853Z",
+	"__export_source": "insomnia.desktop.app:v5.15.0",
+	"resources": [
+		{
+			"_id": "wrk_3b452f2ace864604a7caa4fb2bebfd14",
+			"created": 1507265663375,
+			"description": "",
+			"modified": 1511151843903,
+			"name": "Insomnia",
+			"parentId": null,
+			"_type": "workspace"
+		},
+		{
+			"_id": "env_0b842109edbc4f039eb3f3e56b0e1737",
+			"color": null,
+			"created": 1507265663563,
+			"data": {},
+			"isPrivate": false,
+			"modified": 1507265663563,
+			"name": "Base Environment",
+			"parentId": "wrk_3b452f2ace864604a7caa4fb2bebfd14",
+			"_type": "environment"
+		},
+		{
+			"_id": "jar_ff5d0b369c4a4ec1bf2757d669294052",
+			"cookies": [
+				{
+					"creation": "2017-12-08T06:47:33.756Z",
+					"domain": "bms.bz",
+					"expires": "2018-12-08T06:47:33.000Z",
+					"hostOnly": false,
+					"httpOnly": true,
+					"id": "22169673478903307",
+					"key": "__cfduid",
+					"lastAccessed": "2017-12-08T06:47:33.756Z",
+					"path": "/",
+					"value": "dea70a5ab9e2a1546d4e60df3b755a1db1512715653"
+				},
+				{
+					"creation": "2017-12-15T05:12:51.832Z",
+					"domain": "bookmyshow.com",
+					"expires": "2018-12-15T05:12:50.000Z",
+					"hostOnly": false,
+					"httpOnly": true,
+					"id": "9449380135771748",
+					"key": "__cfduid",
+					"lastAccessed": "2017-12-15T05:12:51.832Z",
+					"path": "/",
+					"value": "dc351be353b601c4e5137a19ed94c46401513314770"
+				},
+				{
+					"creation": "2018-02-14T04:32:45.389Z",
+					"domain": "localhost",
+					"hostOnly": true,
+					"httpOnly": true,
+					"id": "13859696331586746",
+					"key": "connect.sid",
+					"lastAccessed": "2018-04-08T08:19:21.000Z",
+					"path": "/",
+					"value": "s%3AA_x5ahIQ2SenVSvkBZf4VS2rZ5C_wocD.Ooclvl2Z85m6w824IRZyheYfLaaYovTcVnpRnFXweUo"
+				}
+			],
+			"created": 1507265663376,
+			"modified": 1523175561000,
+			"name": "Default Jar",
+			"parentId": "wrk_3b452f2ace864604a7caa4fb2bebfd14",
+			"_type": "cookie_jar"
+		},
+		{
+			"_id": "fld_ce6d56db7a44420c8a94f27219c6b4fe",
+			"created": 1521433370702,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1521433370703,
+			"modified": 1521433370702,
+			"name": "OAuth",
+			"parentId": "wrk_3b452f2ace864604a7caa4fb2bebfd14",
+			"_type": "request_group"
+		},
+		{
+			"_id": "fld_8fc7bf42b89b40cd88e355e89e596214",
+			"created": 1521437066629,
+			"description": "",
+			"environment": {},
+			"metaSortKey": -1521437066629,
+			"modified": 1521437066629,
+			"name": "money",
+			"parentId": "fld_ce6d56db7a44420c8a94f27219c6b4fe",
+			"_type": "request_group"
+		},
+		{
+			"_id": "req_c0135119c5d5409f8e40501212f05655",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/x-www-form-urlencoded",
+				"params": [
+					{
+						"disabled": false,
+						"id": "pair_a72e22ec9be74de08728219f2df0d108",
+						"name": "username",
+						"value": "sree2"
+					},
+					{
+						"disabled": false,
+						"id": "pair_1d2b8231c4a74dfe8fb7603e21c98903",
+						"name": "password",
+						"value": "sree"
+					}
+				]
+			},
+			"created": 1521433407952,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_490010f624ae499491baeec63d3b4c9a",
+					"name": "Content-Type",
+					"value": "application/x-www-form-urlencoded"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1521433407952,
+			"method": "POST",
+			"modified": 1523175122282,
+			"name": "Post Users",
+			"parameters": [],
+			"parentId": "fld_ce6d56db7a44420c8a94f27219c6b4fe",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:3000/api/users",
+			"_type": "request"
+		},
+		{
+			"_id": "req_2361e93e9df945dfa600c04762fac53c",
+			"authentication": {
+				"token": "jbnDX7dE9VNh9xbKZqPHhqlX56lZ0j0gfBauMxt7FGdhlJebCM8WXOUUAWWZdEGKllI7RtOs9FSx6OIOVA4q7vIfHKbmSESTVIBDHpekKzhMyRVhocqlqEXversq53HXBNdPQd1LFizRzTobFQAwM6iGlZzygMXCiLqVTkwtwiR3wstMhPq1sLDPBYcOffaHEcpYDMcp5PQfm4ULl3LR2LaAbn2Ey0bvITgHzJqHF6phfP7vpSFdXOH3rskmzNqy",
+				"type": "bearer"
+			},
+			"body": {},
+			"created": 1521433415424,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1521433415424,
+			"method": "GET",
+			"modified": 1522834618972,
+			"name": "Get users",
+			"parameters": [],
+			"parentId": "fld_ce6d56db7a44420c8a94f27219c6b4fe",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:3000/api/users",
+			"_type": "request"
+		},
+		{
+			"_id": "req_1d5c89240b964890bfae6b7f344b83e6",
+			"authentication": {
+				"disabled": false,
+				"password": "sree",
+				"type": "basic",
+				"username": "sree2"
+			},
+			"body": {
+				"mimeType": "application/x-www-form-urlencoded",
+				"params": [
+					{
+						"disabled": false,
+						"id": "pair_06382c0985e24349a16884394efa0deb",
+						"name": "name",
+						"value": "secondClient2"
+					},
+					{
+						"disabled": false,
+						"id": "pair_8bb62f38b40140fe92920a3eba855fda",
+						"name": "id",
+						"value": "12345"
+					},
+					{
+						"disabled": false,
+						"id": "pair_e3faadbdaf184be585308c32115fbe0d",
+						"name": "secret",
+						"value": "mysecret2"
+					},
+					{
+						"disabled": false,
+						"id": "pair_7e55a53753f148648a6f398d13b58d46",
+						"name": "userId",
+						"value": "5aaf3ba2cd41f70cad580b67"
+					}
+				]
+			},
+			"created": 1521433451097,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_8d5bfc41a6734d4d8128f4fc54d7594d",
+					"name": "Content-Type",
+					"value": "application/x-www-form-urlencoded"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1521433451097,
+			"method": "POST",
+			"modified": 1523175232923,
+			"name": "postClients",
+			"parameters": [],
+			"parentId": "fld_ce6d56db7a44420c8a94f27219c6b4fe",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:3000/api/clients",
+			"_type": "request"
+		},
+		{
+			"_id": "req_87eba778187349cdadc362b87420a295",
+			"authentication": {
+				"disabled": false,
+				"password": "sree",
+				"type": "basic",
+				"username": "sree"
+			},
+			"body": {},
+			"created": 1521433456689,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1521433456689,
+			"method": "GET",
+			"modified": 1522747709801,
+			"name": "getClients",
+			"parameters": [],
+			"parentId": "fld_ce6d56db7a44420c8a94f27219c6b4fe",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:3000/api/clients",
+			"_type": "request"
+		},
+		{
+			"_id": "req_56bcf2830cc24ee9ab22e6e9134dced5",
+			"authentication": {
+				"disabled": false,
+				"password": "mysecret",
+				"type": "basic",
+				"username": "1234"
+			},
+			"body": {
+				"mimeType": "application/x-www-form-urlencoded",
+				"params": [
+					{
+						"disabled": false,
+						"id": "pair_f4deefb2e2934ede9164032cdfd6855a",
+						"name": "code",
+						"value": "6Bt0kaBJYrMiMaVG"
+					},
+					{
+						"disabled": false,
+						"id": "pair_900a4f68c5364795829746172642492f",
+						"name": "grant_type",
+						"value": "authorization_code"
+					},
+					{
+						"disabled": false,
+						"id": "pair_c70fcb661697452fbb3b07a2d1f1906b",
+						"name": "redirect_uri",
+						"value": "http://localhost:8181"
+					}
+				]
+			},
+			"created": 1521436883384,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_4c766efff95340b2983d6f5ae7f45351",
+					"name": "Content-Type",
+					"value": "application/x-www-form-urlencoded"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1521436883384,
+			"method": "POST",
+			"modified": 1522754625507,
+			"name": "Get Token",
+			"parameters": [],
+			"parentId": "fld_ce6d56db7a44420c8a94f27219c6b4fe",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:3000/api/oauth2/token",
+			"_type": "request"
+		},
+		{
+			"_id": "req_a81de6db64514a7d81bdc9d75e5f48ad",
+			"authentication": {
+				"disabled": false,
+				"password": "sree",
+				"type": "basic",
+				"username": "sree"
+			},
+			"body": {},
+			"created": 1521460999604,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_83739a12877e4f8cabb55af4884c985c",
+					"name": "Content-Type",
+					"value": "application/x-www-form-urlencoded"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1521460999655,
+			"method": "GET",
+			"modified": 1523194293610,
+			"name": "getcode",
+			"parameters": [],
+			"parentId": "fld_ce6d56db7a44420c8a94f27219c6b4fe",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:3000/api/oauth2/authorize?client_id=1234&response_type=code&redirect_uri=http://localhost:8181",
+			"_type": "request"
+		},
+		{
+			"_id": "req_24de5d04d5a742948bdb99ddda83d3a0",
+			"authentication": {},
+			"body": {
+				"mimeType": "application/x-www-form-urlencoded",
+				"params": [
+					{
+						"name": "transaction_id",
+						"value": "wZZuTxBy"
+					}
+				]
+			},
+			"created": 1522321014758,
+			"description": "",
+			"headers": [
+				{
+					"name": "Pragma",
+					"value": "no-cache"
+				},
+				{
+					"name": "Origin",
+					"value": "http://localhost:3000"
+				},
+				{
+					"name": "Accept-Encoding",
+					"value": "gzip, deflate, br"
+				},
+				{
+					"name": "Accept-Language",
+					"value": "en-US,en;q=0.9"
+				},
+				{
+					"name": "Upgrade-Insecure-Requests",
+					"value": "1"
+				},
+				{
+					"name": "Authorization",
+					"value": "Basic c3JlZTpzcmVl"
+				},
+				{
+					"name": "Content-Type",
+					"value": "application/x-www-form-urlencoded"
+				},
+				{
+					"name": "Accept",
+					"value": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8"
+				},
+				{
+					"name": "User-Agent",
+					"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.36"
+				},
+				{
+					"name": "Cache-Control",
+					"value": "no-cache"
+				},
+				{
+					"name": "Referer",
+					"value": "http://localhost:3000/api/oauth2/authorize?client_id=1234&response_type=code&redirect_uri=http://localhost:3000"
+				},
+				{
+					"name": "Cookie",
+					"value": "kmqIdentity=sreesha%40gmail.com; ld=%7CLASTLOGIN%3D2017-09-20T10%3A48%3A54.806Z%7CFIRSTNAME%3D%7CMEMBERID%3D600963%7CMEMBEREMAIL%3Dsreesha%40gmail.com%7CLSID%3DGNTZ6N2PPJMUORKN359R%7CNAME%3D%7CLASTNAME%3D%7CMOBILE%3D%7CDOB%3D%7CANNIVERSARY%3D%7CGENDER%3D%7CFAV%3D%7CISPROFILECOMPLETE%3DN%7CPROFILEVALUE%3D39%7CSEQUENCE%3D4%7CEXPIRY%3D08%2F27%2F2116%2005%3A48%3A55%20PM%7CEMAILSUBSCRIPTION%3DN%7CMOBILESUBSCRIPTION%3DN%7CEMAILVERIFIED%3DN%7CMARITALSTATUS%3D%7CISVERIFIEDMOB%3D%7CHASACTIVETRANS%3D%7CISBLACKLISTED%3D%7CWALLETSTATUS%3D%7CWALLETLASTNAME%3D%7CWALLETFIRSTNAME%3D%7CWALLETEMAILID%3D%7CWALLETMOBILENO%3D%7CWALLETACKNO%3D%7CWALLETRESPONSECODE%3D%7CWALLETTRANSACTIONREFNO%3D%7CWALLETAUTOREFUNDMODE%3D%7CWALLETAPPCODE%3D%7CWALLETACTIVATIONDT%3D%7CWALLETACTIVATIONTM%3D%7CREFCODE%3D%7CRCSHORTURL%3D%7CRCLONGURL%3D%7CISWALLETELIGIBLE%3DY%7C; Rgn=%7CCode%3DJKJV%7Ctext%3DJakarta%7C; pnctest=1; _ga=GA1.1.633227044.1505124828; connect.sid=s%3AlDSAFJzcRqpsyiKZED6bxZcIhOT8qdga.9JNks5Bs1EuKjNmHdjnr%2BE6E%2F7MUEnREGeq5Yy2vcXs"
+				},
+				{
+					"name": "Connection",
+					"value": "keep-alive"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1522321014758,
+			"method": "POST",
+			"modified": 1522321826401,
+			"name": "Authorize",
+			"parameters": [],
+			"parentId": "fld_ce6d56db7a44420c8a94f27219c6b4fe",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "http://localhost:3000/api/oauth2/authorize",
+			"_type": "request"
+		},
+		{
+			"_id": "req_1590a13b35f140aa8f873f0e5dd438bd",
+			"authentication": {
+				"token": "jbnDX7dE9VNh9xbKZqPHhqlX56lZ0j0gfBauMxt7FGdhlJebCM8WXOUUAWWZdEGKllI7RtOs9FSx6OIOVA4q7vIfHKbmSESTVIBDHpekKzhMyRVhocqlqEXversq53HXBNdPQd1LFizRzTobFQAwM6iGlZzygMXCiLqVTkwtwiR3wstMhPq1sLDPBYcOffaHEcpYDMcp5PQfm4ULl3LR2LaAbn2Ey0bvITgHzJqHF6phfP7vpSFdXOH3rskmzNqy",
+				"type": "bearer"
+			},
+			"body": {
+				"mimeType": "application/x-www-form-urlencoded",
+				"params": [
+					{
+						"disabled": false,
+						"id": "pair_6d8fa555c6f242ffa7d8c0e455ca2487",
+						"name": "name",
+						"value": "testMoney2"
+					},
+					{
+						"disabled": false,
+						"id": "pair_3cb4b20a3cbe44b0a4b19c1cf366dbe1",
+						"name": "type",
+						"value": "euro"
+					},
+					{
+						"disabled": false,
+						"id": "pair_9e98324d0ec24a468a25fcfb5451e53c",
+						"name": "quantity",
+						"value": "16000"
+					}
+				]
+			},
+			"created": 1521437076205,
+			"description": "",
+			"headers": [
+				{
+					"id": "pair_77056656e6e048d38c8d72915c358119",
+					"name": "Content-Type",
+					"value": "application/x-www-form-urlencoded"
+				}
+			],
+			"isPrivate": false,
+			"metaSortKey": -1521437076205,
+			"method": "POST",
+			"modified": 1522835185594,
+			"name": "post money",
+			"parameters": [],
+			"parentId": "fld_8fc7bf42b89b40cd88e355e89e596214",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:3000/api/money",
+			"_type": "request"
+		},
+		{
+			"_id": "req_9808527d8ca84b4dac9fb2504c988363",
+			"authentication": {
+				"token": "jbnDX7dE9VNh9xbKZqPHhqlX56lZ0j0gfBauMxt7FGdhlJebCM8WXOUUAWWZdEGKllI7RtOs9FSx6OIOVA4q7vIfHKbmSESTVIBDHpekKzhMyRVhocqlqEXversq53HXBNdPQd1LFizRzTobFQAwM6iGlZzygMXCiLqVTkwtwiR3wstMhPq1sLDPBYcOffaHEcpYDMcp5PQfm4ULl3LR2LaAbn2Ey0bvITgHzJqHF6phfP7vpSFdXOH3rskmzNqy",
+				"type": "bearer"
+			},
+			"body": {},
+			"created": 1521437151992,
+			"description": "",
+			"headers": [],
+			"isPrivate": false,
+			"metaSortKey": -1521437151992,
+			"method": "GET",
+			"modified": 1522834909465,
+			"name": "Get MOney",
+			"parameters": [],
+			"parentId": "fld_8fc7bf42b89b40cd88e355e89e596214",
+			"settingDisableRenderRequestBody": false,
+			"settingEncodeUrl": true,
+			"settingRebuildPath": true,
+			"settingSendCookies": true,
+			"settingStoreCookies": true,
+			"url": "localhost:3000/api/money",
+			"_type": "request"
+		}
+	]
+}

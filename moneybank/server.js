@@ -34,7 +34,9 @@ app.use(function (req, res, next) {
   res.header('Access-Control-Allow-Credentials', 'true');
   next();
 });
-
+app.get('/evilCookie',(req,res,next)=>{
+  console.log('Evil Word',req.query.evilWord)
+})
 app.use(session({
   secret: 'blah$ blah$',
   saveUninitialized: true,

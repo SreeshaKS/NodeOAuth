@@ -4,18 +4,22 @@ import { Form, Message, Input, Label, Modal, Icon, Card, Segment, Grid, Header, 
 import config from '../../config'
 import FetchAPI from '../apis'
 import { AreaChart, XAxis, YAxis, CartesianGrid, Tooltip, Area, ResponsiveContainer } from 'recharts';
+import $ from 'jquery'
 
 export default class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = { addmoney: '', sendmoney: '', submittedadd: '', submittedsend: '', graphData: null }
+        this.state = { xssString:'20',addmoney: '', sendmoney: '', submittedadd: '', submittedsend: '', graphData: null }
     }
 
     handleChange = (e, { name, value }) => this.setState({ [name]: value })
 
     handleSubmit = () => {
         const { addmoney, sendmoney } = this.state
-        this.setState({ submittedadd: addmoney, submittedsend: sendmoney })
+        //console.log(addmoney, sendmoney)
+        this.setState({ xssString:addmoney,submittedadd: addmoney, submittedsend: sendmoney })
+        //solution - input sanitization
+        //this.setState({ xssString:escape(addmoney),submittedadd: addmoney, submittedsend: sendmoney })
         if (addmoney) {
             this.props.callbacks.addMoney(addmoney, () => {
                 this.getMoney()
@@ -37,7 +41,13 @@ export default class Home extends Component {
     componentDidMount() {
         this.getMoney()
     }
+    getXSSInput(form){
+        // var TestVar = form.query.value;
+        // this.setState({xssString:TestVar})
+    }
     render() {
+        let xssString = this.state.xssString;
+        console.log(xssString);
         let sum = 0;
         (this.state.graphData || []).forEach((e, i) => {
             sum = sum + e.pv
@@ -101,7 +111,12 @@ export default class Home extends Component {
                                 </Form>
                             </Grid.Column> */}
                             <Grid.Column verticalAlign='middle'>
-                                <Form onSubmit={this.handleSubmit} size='huge'>
+                                {/* <form method="get" action="">
+                                    Enter <input type="text" name="query"/>
+                                            <input type="button" value="Search" onClick={this.getXSSInput(null)}/>
+                                </form> */}
+                                {$( xssString ).insertAfter( "#testForm" )}
+                                <Form id="testForm" onSubmit={this.handleSubmit} size='huge'>
                                     <Form.Group>
                                         <Form.Input placeholder='Add Money' name='addmoney' onChange={this.handleChange} />
                                         <br />

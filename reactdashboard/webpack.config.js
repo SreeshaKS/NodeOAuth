@@ -8,7 +8,7 @@ module.exports = {
         filename : "bundle.js"
     },
     module : {
-        loaders : [{
+        rules : [{
             test : /\.jsx?/,
             include : APP_DIR,
             loader : 'babel-loader',
@@ -21,5 +21,6 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.jsx'],
     },
+    mode:"development",
     watch:true
 }
