@@ -32,23 +32,23 @@ server.grant(oauth2orize.grant.code(function (client, redirectUri, user, ares, c
     callback(null, code.value);
   });
 }));
-
+// Exchange authorization codes for access tokens
 server.exchange(oauth2orize.exchange.code(function (client, code, redirectUri, callback) {
   Code.findOne({ value: code }, function (err, authCode) {
     if (err) { return callback(err); }
     if (authCode === undefined) { return callback(null, false); }
     if (client._id.toString() !== authCode.clientId) { return callback(null, false); }
     if (redirectUri !== authCode.redirectUri) { return callback(null, false); }
-
+    // Delete auth code now that it has been used
     authCode.remove(function (err) {
       if (err) { return callback(err); }
-
+       // Create a new access token
       var token = new Token({
         value: uid(256),
         clientId: authCode.clientId,
         userId: authCode.userId
       });
-
+      // Save the access token and check for errors
       token.save(function (err) {
         if (err) { return callback(err); }
 
@@ -57,7 +57,7 @@ server.exchange(oauth2orize.exchange.code(function (client, code, redirectUri, c
     });
   });
 }));
-
+// User authorization endpoint
 exports.authorization = [
   server.authorization(function (clientId, redirectUri, callback) {
 
@@ -88,11 +88,24 @@ function uid(len) {
 function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+// User decision endpoint
 
+/*
+  This endpoint is setup to handle when the user either grants or denies access to their account 
+  to the requesting application client. 
+  The server.decision() function handles the data submitted by the post and will call the server.grant() function 
+  we created earlier if the user granted access.
+*/
 exports.decision = [
   server.decision()
 ]
+// Application client token exchange endpoint
 
+/*
+  This endpoint is setup to handle the request made by the application client 
+  after they have been granted an authorization code by the user. 
+  The server.token() function will initiate a call to the server.exchange() function we created earlier.
+*/
 exports.token = [
   server.token(),
   server.errorHandler()
